@@ -1,18 +1,16 @@
-from django.shortcuts import render, redirect, reverse
-from . import forms, models
-from django.db.models import Sum
-from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
-from datetime import date, timedelta
-from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from teacher import models as TMODEL
+from django.db.models import Sum
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+
+from student import forms as SFORM
 from student import models as SMODEL
 from teacher import forms as TFORM
-from student import forms as SFORM
-from django.contrib.auth.models import User
+from teacher import models as TMODEL
+from . import forms, models
 
 
 def home_view(request):

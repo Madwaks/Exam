@@ -1,6 +1,7 @@
-from django.urls import path
-from student import views
 from django.contrib.auth.views import LoginView
+from django.urls import path
+
+from student import views
 
 urlpatterns = [
     path("studentclick", views.studentclick_view),

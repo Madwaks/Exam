@@ -1,7 +1,8 @@
-from django.urls import path, include
 from django.contrib import admin
-from quiz import views
 from django.contrib.auth.views import LogoutView, LoginView
+from django.urls import path, include
+
+from quiz import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),

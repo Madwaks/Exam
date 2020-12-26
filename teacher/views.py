@@ -1,14 +1,12 @@
-from django.shortcuts import render, redirect, reverse
-from . import forms, models
-from django.db.models import Sum
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.conf import settings
-from datetime import date, timedelta
+from django.shortcuts import render
+
+from quiz import forms as QFORM
 from quiz import models as QMODEL
 from student import models as SMODEL
-from quiz import forms as QFORM
+from . import forms
 
 
 # for showing signup/login button for teacher
