@@ -10,7 +10,8 @@ from student import forms as SFORM
 from student import models as SMODEL
 from teacher import forms as TFORM
 from teacher import models as TMODEL
-from . import forms, models
+from . import forms
+from .models import Course, Question, Result
 
 
 def home_view(request):
@@ -54,8 +55,8 @@ def admin_dashboard_view(request):
     dict = {
         "total_student": SMODEL.Student.objects.all().count(),
         "total_teacher": TMODEL.Teacher.objects.all().filter(status=True).count(),
-        "total_course": models.Course.objects.all().count(),
-        "total_question": models.Question.objects.all().count(),
+        "total_course": Course.objects.all().count(),
+        "total_question": Question.objects.all().count(),
     }
     return render(request, "quiz/admin_dashboard.html", context=dict)
 
@@ -207,13 +208,13 @@ def admin_add_course_view(request):
 
 @login_required(login_url="adminlogin")
 def admin_view_course_view(request):
-    courses = models.Course.objects.all()
+    courses = Course.objects.all()
     return render(request, "quiz/admin_view_course.html", {"courses": courses})
 
 
 @login_required(login_url="adminlogin")
 def delete_course_view(request, pk):
-    course = models.Course.objects.get(id=pk)
+    course = Course.objects.get(id=pk)
     course.delete()
     return HttpResponseRedirect("/admin-view-course")
 
@@ -230,7 +231,7 @@ def admin_add_question_view(request):
         questionForm = forms.QuestionForm(request.POST)
         if questionForm.is_valid():
             question = questionForm.save(commit=False)
-            course = models.Course.objects.get(id=request.POST.get("courseID"))
+            course = Course.objects.get(id=request.POST.get("courseID"))
             question.course = course
             question.save()
         else:
@@ -243,19 +244,19 @@ def admin_add_question_view(request):
 
 @login_required(login_url="adminlogin")
 def admin_view_question_view(request):
-    courses = models.Course.objects.all()
+    courses = Course.objects.all()
     return render(request, "quiz/admin_view_question.html", {"courses": courses})
 
 
 @login_required(login_url="adminlogin")
 def view_question_view(request, pk):
-    questions = models.Question.objects.all().filter(course_id=pk)
+    questions = Question.objects.all().filter(course_id=pk)
     return render(request, "quiz/view_question.html", {"questions": questions})
 
 
 @login_required(login_url="adminlogin")
 def delete_question_view(request, pk):
-    question = models.Question.objects.get(id=pk)
+    question = Question.objects.get(id=pk)
     question.delete()
     return HttpResponseRedirect("/admin-view-question")
 
@@ -268,7 +269,7 @@ def admin_view_student_marks_view(request):
 
 @login_required(login_url="adminlogin")
 def admin_view_marks_view(request, pk):
-    courses = models.Course.objects.all()
+    courses = Course.objects.all()
     response = render(request, "quiz/admin_view_marks.html", {"courses": courses})
     response.set_cookie("student_id", str(pk))
     return response
@@ -276,11 +277,11 @@ def admin_view_marks_view(request, pk):
 
 @login_required(login_url="adminlogin")
 def admin_check_marks_view(request, pk):
-    course = models.Course.objects.get(id=pk)
+    course = Course.objects.get(id=pk)
     student_id = request.COOKIES.get("student_id")
     student = SMODEL.Student.objects.get(id=student_id)
 
-    results = models.Result.objects.all().filter(exam=course).filter(student=student)
+    results = Result.objects.all().filter(exam=course).filter(student=student)
     return render(request, "quiz/admin_check_marks.html", {"results": results})
 
 
