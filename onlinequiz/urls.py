@@ -2,13 +2,15 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path, include
 
-from quiz import views
 from quiz.views.about_us import AboutUsView
 from quiz.views.admin_click import AdminClick
 from quiz.views.admin_dashboard import AdminDashboard
+from quiz.views.admin_pending_teacher import AdminPendingTeacher
 from quiz.views.admin_teacher import AdminTeacher, AdminView
 from quiz.views.after_login import AfterLogin
+from quiz.views.approve_teacher import ApproveTeacher
 from quiz.views.contact_us import ContactUsView
+from quiz.views.delete_teacher import DeleteTeacher, RejectTeacher
 from quiz.views.home import HomeView
 from quiz.views.update_teacher import UpdateTeacher
 
@@ -31,21 +33,14 @@ urlpatterns = [
     path("admin-teacher", AdminTeacher.as_view(), name="admin-teacher"),
     path("admin-view-teacher", AdminView.as_view(), name="admin-view-teacher"),
     path("update-teacher/<int:pk>", UpdateTeacher.as_view(), name="update-teacher"),
-    # path("delete-teacher/<int:pk>", views.delete_teacher_view, name="delete-teacher"),
-    # path(
-    #     "admin-view-pending-teacher",
-    #     views.admin_view_pending_teacher_view,
-    #     name="admin-view-pending-teacher",
-    # ),
-    # path(
-    #     "admin-view-teacher-salary",
-    #     views.admin_view_teacher_salary_view,
-    #     name="admin-view-teacher-salary",
-    # ),
-    # path(
-    #     "approve-teacher/<int:pk>", views.approve_teacher_view, name="approve-teacher"
-    # ),
-    # path("reject-teacher/<int:pk>", views.reject_teacher_view, name="reject-teacher"),
+    path("delete-teacher/<int:pk>", DeleteTeacher.as_view(), name="delete-teacher"),
+    path(
+        "admin-view-pending-teacher",
+        AdminPendingTeacher.as_view(),
+        name="admin-view-pending-teacher",
+    ),
+    path("approve-teacher/<int:pk>", ApproveTeacher.as_view(), name="approve-teacher"),
+    path("reject-teacher/<int:pk>", RejectTeacher.as_view(), name="reject-teacher"),
     # path("admin-student", views.admin_student_view, name="admin-student"),
     # path(
     #     "admin-view-student", views.admin_view_student_view, name="admin-view-student"

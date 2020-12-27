@@ -125,6 +125,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [STATIC_DIR]
 
+LOGIN_URL = "/adminlogin"
 LOGIN_REDIRECT_URL = "/afterlogin"
 
 # for contact us give your gmail id and password

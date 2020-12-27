@@ -11,8 +11,21 @@ from student import forms as SFORM
 from student import models as SMODEL
 from teacher import forms as TFORM
 from teacher import models as TMODEL
-from . import forms
-from .models import Course, Question, Result
+from . import forms, models
+
+
+def home_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("afterlogin")
+    return render(request, "quiz/index.html")
+
+
+def is_teacher(user):
+    return user.groups.filter(name="TEACHER").exists()
+
+
+def is_student(user):
+    return user.groups.filter(name="STUDENT").exists()
 
 
 def afterlogin_view(request):
@@ -31,10 +44,58 @@ def afterlogin_view(request):
         return redirect("admin-dashboard")
 
 
+def adminclick_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("afterlogin")
+    return HttpResponseRedirect("adminlogin")
+
+
+@login_required(login_url="adminlogin")
+def admin_dashboard_view(request):
+    dict = {
+        "total_student": SMODEL.Student.objects.all().count(),
+        "total_teacher": TMODEL.Teacher.objects.all().filter(status=True).count(),
+        "total_course": Course.objects.all().count(),
+        "total_question": Question.objects.all().count(),
+    }
+    return render(request, "quiz/admin_dashboard.html", context=dict)
+
+
+@login_required(login_url="adminlogin")
+def admin_teacher_view(request):
+    dict = {
+        "total_teacher": TMODEL.Teacher.objects.all().filter(status=True).count(),
+        "pending_teacher": TMODEL.Teacher.objects.all().filter(status=False).count(),
+        "salary": TMODEL.Teacher.objects.all()
+        .filter(status=True)
+        .aggregate(Sum("salary"))["salary__sum"],
+    }
+    return render(request, "quiz/admin_teacher.html", context=dict)
+
+
 @login_required(login_url="adminlogin")
 def admin_view_teacher_view(request):
     teachers = TMODEL.Teacher.objects.all().filter(status=True)
     return render(request, "quiz/admin_view_teacher.html", {"teachers": teachers})
+
+
+@login_required(login_url="adminlogin")
+def update_teacher_view(request, pk):
+    teacher = TMODEL.Teacher.objects.get(id=pk)
+    user = TMODEL.User.objects.get(id=teacher.user_id)
+    userForm = TFORM.TeacherUserForm(instance=user)
+    teacherForm = TFORM.TeacherForm(request.FILES, instance=teacher)
+    mydict = {"userForm": userForm, "teacherForm": teacherForm}
+    if request.method == "POST":
+        userForm = TFORM.TeacherUserForm(request.POST, instance=user)
+        teacherForm = TFORM.TeacherForm(request.POST, request.FILES, instance=teacher)
+        if userForm.is_valid() and teacherForm.is_valid():
+            user = userForm.save()
+            user.set_password(user.password)
+            user.save()
+            teacherForm.save()
+            return redirect("admin-view-teacher")
+    return render(request, "quiz/update_teacher.html", context=mydict)
 
 
 @login_required(login_url="adminlogin")
@@ -77,14 +138,6 @@ def reject_teacher_view(request, pk):
     user.delete()
     teacher.delete()
     return HttpResponseRedirect("/admin-view-pending-teacher")
-
-
-@login_required(login_url="adminlogin")
-def admin_view_teacher_salary_view(request):
-    teachers = TMODEL.Teacher.objects.all().filter(status=True)
-    return render(
-        request, "quiz/admin_view_teacher_salary.html", {"teachers": teachers}
-    )
 
 
 @login_required(login_url="adminlogin")
@@ -222,3 +275,26 @@ def admin_check_marks_view(request, pk):
 
     results = Result.objects.all().filter(exam=course).filter(student=student)
     return render(request, "quiz/admin_check_marks.html", {"results": results})
+
+
+def aboutus_view(request):
+    return render(request, "quiz/aboutus.html")
+
+
+def contactus_view(request):
+    sub = forms.ContactusForm()
+    if request.method == "POST":
+        sub = forms.ContactusForm(request.POST)
+        if sub.is_valid():
+            email = sub.cleaned_data["Email"]
+            name = sub.cleaned_data["Name"]
+            message = sub.cleaned_data["Message"]
+            send_mail(
+                str(name) + " || " + str(email),
+                message,
+                settings.EMAIL_HOST_USER,
+                settings.EMAIL_RECEIVING_USER,
+                fail_silently=False,
+            )
+            return render(request, "quiz/contactussuccess.html")
+    return render(request, "quiz/contactus.html", {"form": sub})
