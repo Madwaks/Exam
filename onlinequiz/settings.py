@@ -87,7 +87,7 @@ DATABASES = {
         "NAME": os.environ.get("POSTGRESQL_DATABASE", "quiz"),
         "USER": os.environ.get("POSTGRESQL_USERNAME", "quiz"),
         "PASSWORD": os.environ.get("POSTGRESQL_PASSWORD", "quiz"),
-        "HOST": os.environ.get("POSTGRESQL_HOST", "localhost"),
+        "HOST": os.environ.get("POSTGRESQL_HOST", "hosoda.tradefox.tech"),
         "PORT": "5432",
     }
 }
