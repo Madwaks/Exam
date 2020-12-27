@@ -6,10 +6,11 @@ from quiz import views
 from quiz.views.about_us import AboutUsView
 from quiz.views.admin_click import AdminClick
 from quiz.views.admin_dashboard import AdminDashboard
-from quiz.views.admin_teacher import AdminTeacher
+from quiz.views.admin_teacher import AdminTeacher, AdminView
 from quiz.views.after_login import AfterLogin
 from quiz.views.contact_us import ContactUsView
 from quiz.views.home import HomeView
+from quiz.views.update_teacher import UpdateTeacher
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,10 +29,8 @@ urlpatterns = [
     ),
     path("admin-dashboard", AdminDashboard.as_view(), name="admin-dashboard"),
     path("admin-teacher", AdminTeacher.as_view(), name="admin-teacher"),
-    # path(
-    #     "admin-view-teacher", views.admin_view_teacher_view, name="admin-view-teacher"
-    # ),
-    # path("update-teacher/<int:pk>", views.update_teacher_view, name="update-teacher"),
+    path("admin-view-teacher", AdminView.as_view(), name="admin-view-teacher"),
+    path("update-teacher/<int:pk>", UpdateTeacher.as_view(), name="update-teacher"),
     # path("delete-teacher/<int:pk>", views.delete_teacher_view, name="delete-teacher"),
     # path(
     #     "admin-view-pending-teacher",

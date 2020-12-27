@@ -38,25 +38,6 @@ def admin_view_teacher_view(request):
 
 
 @login_required(login_url="adminlogin")
-def update_teacher_view(request, pk):
-    teacher = TMODEL.Teacher.objects.get(id=pk)
-    user = TMODEL.User.objects.get(id=teacher.user_id)
-    userForm = TFORM.TeacherUserForm(instance=user)
-    teacherForm = TFORM.TeacherForm(request.FILES, instance=teacher)
-    mydict = {"userForm": userForm, "teacherForm": teacherForm}
-    if request.method == "POST":
-        userForm = TFORM.TeacherUserForm(request.POST, instance=user)
-        teacherForm = TFORM.TeacherForm(request.POST, request.FILES, instance=teacher)
-        if userForm.is_valid() and teacherForm.is_valid():
-            user = userForm.save()
-            user.set_password(user.password)
-            user.save()
-            teacherForm.save()
-            return redirect("admin-view-teacher")
-    return render(request, "quiz/update_teacher.html", context=mydict)
-
-
-@login_required(login_url="adminlogin")
 def delete_teacher_view(request, pk):
     teacher = TMODEL.Teacher.objects.get(id=pk)
     user = User.objects.get(id=teacher.user_id)
