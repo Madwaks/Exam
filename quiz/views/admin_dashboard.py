@@ -11,6 +11,8 @@ from teacher.models import Teacher
 
 @method_decorator(login_required, name="dispatch")
 class AdminDashboard(TemplateView):
+    template_name = "quiz/admin_dashboard.html"
+
     def get_context_data(self, **kwargs):
         context = {
             "total_student": Student.objects.all().count(),
@@ -18,4 +20,4 @@ class AdminDashboard(TemplateView):
             "total_course": Course.objects.all().count(),
             "total_question": Question.objects.all().count(),
         }
-        return render(self.request, "quiz/admin_dashboard.html", context=context)
+        return context

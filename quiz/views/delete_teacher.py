@@ -23,7 +23,7 @@ class DeleteTeacher(DeleteView):
 class RejectTeacher(DeleteView):
     model = Teacher
 
-    def delete(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         teacher = Teacher.objects.get(id=kwargs.get("pk"))
         user = User.objects.get(id=teacher.user_id)
         user.delete()

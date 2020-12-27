@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     "teacher",
     "student",
     "widget_tweaks",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -143,3 +145,5 @@ EMAIL_HOST_PASSWORD = "xyz"  # host email password required
 EMAIL_RECEIVING_USER = [
     "to@gmail.com"
 ]  # email on which you will receive messages sent from website
+
+INTERNAL_IPS = ["127.0.0.1"]

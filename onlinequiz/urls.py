@@ -1,3 +1,4 @@
+import debug_toolbar
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path, include
@@ -15,6 +16,7 @@ from quiz.views.home import HomeView
 from quiz.views.update_teacher import UpdateTeacher
 
 urlpatterns = [
+    path("debug/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("teacher/", include("teacher.urls")),
     path("student/", include("student.urls")),
