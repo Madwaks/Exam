@@ -10,10 +10,10 @@ from teacher.models import Teacher
 class AdminDashboard(View):
     @login_required(login_url="adminlogin")
     def get(self, request):
-        dict = {
+        context = {
             "total_student": Student.objects.all().count(),
             "total_teacher": Teacher.objects.all().filter(status=True).count(),
             "total_course": Course.objects.all().count(),
             "total_question": Question.objects.all().count(),
         }
-        return render(request, "quiz/admin_dashboard.html", context=dict)
+        return render(request, "quiz/admin_dashboard.html", context=context)
