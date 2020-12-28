@@ -4,15 +4,17 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from student.models import Student
-from quiz.models import Question
-from quiz.models import Course
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from typing import Optional
 from typing import Dict, Any
 
+from quiz.models import Course, Question
+from student.models import Student
+
+
 def is_teacher(user):
     return user.groups.filter(name="TEACHER").exists()
+
 
 @method_decorator(login_required, name="dispatch")
 class TeacherDashboard(TemplateView, UserPassesTestMixin):
@@ -23,12 +25,11 @@ class TeacherDashboard(TemplateView, UserPassesTestMixin):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = {
-        "total_course": Course.objects.all().count(),
-        "total_question": Question.objects.all().count(),
-        "total_student": Student.objects.all().count(),
-    }
+            "total_course": Course.objects.all().count(),
+            "total_question": Question.objects.all().count(),
+            "total_student": Student.objects.all().count(),
+        }
         return context
-
 
 
 # def teacher_dashboard_view(request):

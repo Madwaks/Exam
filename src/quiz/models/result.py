@@ -1,6 +1,6 @@
 from django.db import models
 
-from quiz.models.course import Course
+from quiz.models import Course
 from student.models import Student
 
 

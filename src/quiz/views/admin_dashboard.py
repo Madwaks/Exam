@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views import View
 from django.views.generic import TemplateView
 
-from quiz.models import Question, Course
+from quiz.models import Course, Question
 from student.models import Student
 from teacher.models import Teacher
 

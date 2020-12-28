@@ -1,10 +1,9 @@
-from teacher.views.teacher_dashboard import TeacherDashboard
 from django.contrib.auth.views import LoginView
 from django.urls import path
 
-from teacher import views
-
 from teacher.views.teacher_click import TeacherClick
+from teacher.views.teacher_dashboard import TeacherDashboard
+from teacher.views.teacher_exam import TeacherExam
 
 urlpatterns = [
     path("teacherclick", TeacherClick.as_view()),
