@@ -1,6 +1,7 @@
-from django.views import View
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.views import View
+
 
 # for showing signup/login button for teacher
 

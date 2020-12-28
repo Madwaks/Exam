@@ -1,12 +1,10 @@
-from django.views.generic.base import TemplateView
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from typing import Optional
 from typing import Dict, Any
+from typing import Optional
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
 
 from quiz.models import Course, Question
 from student.models import Student

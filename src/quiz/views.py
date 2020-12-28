@@ -7,11 +7,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from quiz.views.utils import is_student, is_teacher
-from ..student import forms as SFORM
 from student import models as SMODEL
 from teacher import forms as TFORM
+from . import forms
+from ..student import forms as SFORM
 from ..teacher import models as TMODEL
-from . import forms, models
 
 
 def home_view(request):
