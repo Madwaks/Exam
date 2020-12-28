@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.http import HttpRequest
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView
 
@@ -7,14 +8,18 @@ from quiz.models import Course
 from quiz.views.utils import is_teacher
 
 
-class TeacherAddExam(CreateView, UserPassesTestMixin, LoginRequiredMixin):
+class TeacherMixin(UserPassesTestMixin, LoginRequiredMixin):
+    request: HttpRequest
     login_url = "teacherlogin"
-    model = Course
-    form_class = CourseForm
-    template_name = "teacher/teacher_add_exam.html"
 
     def test_func(self):
         return is_teacher(self.request.user)
+
+
+class TeacherAddExam(CreateView, TeacherMixin):
+    model = Course
+    form_class = CourseForm
+    template_name = "teacher/teacher_add_exam.html"
 
     def get_success_url(self):
         return reverse("/teacher/teacher-view-exam")

@@ -1,6 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.views.generic import TemplateView, ListView, FormView
 
+from student.forms import StudentForm, StudentUserForm
 from student.models import Student
 
 
@@ -40,7 +43,23 @@ class AdminStudentView(ListView, LoginRequiredMixin):
 #             return redirect("admin-view-student")
 #     return render(request, "quiz/update_student.html", context=mydict)
 #
-# class UpdateStudent(UpdateView, LoginRequiredMixin):
-#     login_url = "adminlogin"
-#     model = Student
-#     form_class =
+class UpdateStudent(FormView, LoginRequiredMixin):
+    login_url = "adminlogin"
+
+    def get_context_data(self, **kwargs):
+        student = Student.objects.get(id=kwargs.get("pk"))
+        user = User.objects.get(id=student.user_id)
+        userForm = StudentUserForm(instance=user)
+        studentForm = StudentForm(self.request.FILES, instance=student)
+        return {"userForm": userForm, "studentForm": studentForm}
+
+    def post(self, request, *args, **kwargs):
+        student = Student.objects.get(id=kwargs.get("pk"))
+        userForm = StudentUserForm(request.POST, instance=self.request.user)
+        studentForm = StudentForm(request.POST, request.FILES, instance=student)
+        if userForm.is_valid() and studentForm.is_valid():
+            user = userForm.save()
+            user.set_password(user.password)
+            user.save()
+            studentForm.save()
+            return redirect("admin-view-student")
