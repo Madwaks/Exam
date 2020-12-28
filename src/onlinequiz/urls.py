@@ -7,6 +7,12 @@ from quiz.views.about_us import AboutUsView
 from quiz.views.admin_click import AdminClick
 from quiz.views.admin_dashboard import AdminDashboard
 from quiz.views.admin_pending_teacher import AdminPendingTeacher
+from quiz.views.admin_student import AdminStudent, AdminStudentView
+from quiz.views.admin_student_marks import (
+    AdminStudentMarks,
+    AdminStudentMarksView,
+    AdminCheckMarks,
+)
 from quiz.views.admin_teacher import AdminTeacher, AdminView
 from quiz.views.after_login import AfterLogin
 from quiz.views.approve_teacher import ApproveTeacher
@@ -43,25 +49,23 @@ urlpatterns = [
     ),
     path("approve-teacher/<int:pk>", ApproveTeacher.as_view(), name="approve-teacher"),
     path("reject-teacher/<int:pk>", RejectTeacher.as_view(), name="reject-teacher"),
-    # path("admin-student", views.admin_student_view, name="admin-student"),
-    # path(
-    #     "admin-view-student", views.admin_view_student_view, name="admin-view-student"
-    # ),
-    # path(
-    #     "admin-view-student-marks",
-    #     views.admin_view_student_marks_view,
-    #     name="admin-view-student-marks",
-    # ),
-    # path(
-    #     "admin-view-marks/<int:pk>",
-    #     views.admin_view_marks_view,
-    #     name="admin-view-marks",
-    # ),
-    # path(
-    #     "admin-check-marks/<int:pk>",
-    #     views.admin_check_marks_view,
-    #     name="admin-check-marks",
-    # ),
+    path("admin-student", AdminStudent.as_view(), name="admin-student"),
+    path("admin-view-student", AdminStudentView.as_view(), name="admin-view-student"),
+    path(
+        "admin-view-student-marks",
+        AdminStudentMarks.as_view(),
+        name="admin-view-student-marks",
+    ),
+    path(
+        "admin-view-marks/<int:pk>",
+        AdminStudentMarksView.as_view(),
+        name="admin-view-marks",
+    ),
+    path(
+        "admin-check-marks/<int:pk>",
+        AdminCheckMarks.as_view(),
+        name="admin-check-marks",
+    ),
     # path("update-student/<int:pk>", views.update_student_view, name="update-student"),
     # path("delete-student/<int:pk>", views.delete_student_view, name="delete-student"),
     # path("admin-course", views.admin_course_view, name="admin-course"),

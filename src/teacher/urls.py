@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path
 
+from teacher.views.signup import Signup
 from teacher.views.teacher_click import TeacherClick
 from teacher.views.teacher_dashboard import TeacherDashboard
 from teacher.views.teacher_exam import TeacherExam
@@ -12,7 +13,7 @@ urlpatterns = [
         LoginView.as_view(template_name="teacher/teacherlogin.html"),
         name="teacherlogin",
     ),
-    # path("teachersignup", views.teacher_signup_view, name="teachersignup"),
+    path("teachersignup", Signup.as_view(), name="teachersignup"),
     path("teacher-dashboard", TeacherDashboard.as_view(), name="teacher-dashboard"),
     path("teacher-exam", TeacherExam.as_view(), name="teacher-exam"),
     # path("teacher-add-exam", views.teacher_add_exam_view, name="teacher-add-exam"),

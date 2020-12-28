@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -8,8 +9,8 @@ from teacher.forms import TeacherUserForm, TeacherForm
 from teacher.models import Teacher
 
 
-@method_decorator(login_required, name="dispatch")
-class UpdateTeacher(UpdateView):
+class UpdateTeacher(UpdateView, LoginRequiredMixin):
+    login_url = "adminlogin"
     template_name = "quiz/update_teacher.html"
     model = Teacher
     fields = ["user"]
