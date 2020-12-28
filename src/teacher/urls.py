@@ -1,6 +1,14 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path
 
+from teacher.views.exam import TeacherAddExam, ExamView, DeleteExam
+from teacher.views.question import (
+    Question,
+    AddQuestion,
+    QuestionList,
+    DetailQuestions,
+    DeleteQuestion,
+)
 from teacher.views.signup import Signup
 from teacher.views.teacher_click import TeacherClick
 from teacher.views.teacher_dashboard import TeacherDashboard
@@ -16,22 +24,12 @@ urlpatterns = [
     path("teachersignup", Signup.as_view(), name="teachersignup"),
     path("teacher-dashboard", TeacherDashboard.as_view(), name="teacher-dashboard"),
     path("teacher-exam", TeacherExam.as_view(), name="teacher-exam"),
-    # path("teacher-add-exam", views.teacher_add_exam_view, name="teacher-add-exam"),
-    # path("teacher-view-exam", views.teacher_view_exam_view, name="teacher-view-exam"),
-    # path("delete-exam/<int:pk>", views.delete_exam_view, name="delete-exam"),
-    # path("teacher-question", views.teacher_question_view, name="teacher-question"),
-    # path(
-    #     "teacher-add-question",
-    #     views.teacher_add_question_view,
-    #     name="teacher-add-question",
-    # ),
-    # path(
-    #     "teacher-view-question",
-    #     views.teacher_view_question_view,
-    #     name="teacher-view-question",
-    # ),
-    # path("see-question/<int:pk>", views.see_question_view, name="see-question"),
-    # path(
-    #     "remove-question/<int:pk>", views.remove_question_view, name="remove-question"
-    # ),
+    path("teacher-add-exam", TeacherAddExam.as_view(), name="teacher-add-exam"),
+    path("teacher-view-exam", ExamView.as_view(), name="teacher-view-exam"),
+    path("delete-exam/<int:pk>", DeleteExam.as_view(), name="delete-exam"),
+    path("teacher-question", Question.as_view(), name="teacher-question"),
+    path("teacher-add-question", AddQuestion.as_view(), name="teacher-add-question"),
+    path("teacher-view-question", QuestionList.as_view(), name="teacher-view-question"),
+    path("see-question/<int:pk>", DetailQuestions.as_view(), name="see-question"),
+    path("remove-question/<int:pk>", DeleteQuestion.as_view(), name="remove-question"),
 ]
