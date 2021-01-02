@@ -26,7 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("teacher/", include("teacher.urls")),
     path("student/", include("student.urls")),
-    path("", HomeView.as_view(), name=""),
+    path("", HomeView.as_view(), name="Home"),
     path("logout", LogoutView.as_view(template_name="quiz/logout.html"), name="logout"),
     path("aboutus", AboutUsView.as_view()),
     path("contactus", ContactUsView.as_view()),
