@@ -16,7 +16,6 @@ from quiz.views.admin_student_marks import (
 from quiz.views.admin_teacher import AdminTeacher, AdminView
 from quiz.views.after_login import AfterLogin
 from quiz.views.approve_teacher import ApproveTeacher
-from quiz.views.contact_us import ContactUsView
 from quiz.views.delete_teacher import DeleteTeacher, RejectTeacher
 from quiz.views.home import HomeView
 from quiz.views.update_teacher import UpdateTeacher
@@ -29,7 +28,6 @@ urlpatterns = [
     path("", HomeView.as_view(), name="Home"),
     path("logout", LogoutView.as_view(template_name="quiz/logout.html"), name="logout"),
     path("aboutus", AboutUsView.as_view()),
-    path("contactus", ContactUsView.as_view()),
     path("afterlogin", AfterLogin.as_view(name="afterlogin")),
     path("adminclick", AdminClick.as_view()),
     path(

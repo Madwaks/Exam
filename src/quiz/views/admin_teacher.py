@@ -15,9 +15,6 @@ class AdminTeacher(TemplateView):
         context = {
             "total_teacher": Teacher.objects.all().filter(status=True).count(),
             "pending_teacher": Teacher.objects.all().filter(status=False).count(),
-            "salary": Teacher.objects.all()
-            .filter(status=True)
-            .aggregate(Sum("salary"))["salary__sum"],
         }
         return render(self.request, self.template_name, context=context)
 

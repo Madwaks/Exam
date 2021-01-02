@@ -32,22 +32,15 @@
         <tr>
 
           <th>Name</th>
-          <th>Profile Picture</th>
-          <th>Mobile</th>
-          <th>Address</th>
-         
           <th>Approve</th>
           <th>Reject</th>
         </tr>
       </thead>
-      {% for t in teachers %}
+      {% for t in object_list %}
       <tr>
 
-        <td> {{t.get_name}}</td>
-        <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-        <td>{{t.mobile}}</td>
-        <td>{{t.address}}</td>
-        
+        <td> {{t.full_name}}</td>
+
         <td><a class="btn btn-primary btn-xs" href="{% url 'approve-teacher' t.id  %}"><span class="glyphicon glyphicon-ok"></span></a></td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'reject-teacher' t.id  %}"><span class="	glyphicon glyphicon-remove"></span></a></td>
       </tr>

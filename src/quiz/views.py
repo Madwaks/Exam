@@ -279,22 +279,3 @@ def admin_check_marks_view(request, pk):
 
 def aboutus_view(request):
     return render(request, "quiz/aboutus.html")
-
-
-def contactus_view(request):
-    sub = forms.ContactusForm()
-    if request.method == "POST":
-        sub = forms.ContactusForm(request.POST)
-        if sub.is_valid():
-            email = sub.cleaned_data["Email"]
-            name = sub.cleaned_data["Name"]
-            message = sub.cleaned_data["Message"]
-            send_mail(
-                str(name) + " || " + str(email),
-                message,
-                settings.EMAIL_HOST_USER,
-                settings.EMAIL_RECEIVING_USER,
-                fail_silently=False,
-            )
-            return render(request, "quiz/contactussuccess.html")
-    return render(request, "quiz/contactus.html", {"form": sub})

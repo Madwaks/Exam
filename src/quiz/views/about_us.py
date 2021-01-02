@@ -1,7 +1,5 @@
-from django.shortcuts import render
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView
 
 
-class AboutUsView(View):
-    def get(self, request):
-        return render(request, "quiz/aboutus.html")
+class AboutUsView(TemplateView):
+    template_name = "quiz/aboutus.html"
