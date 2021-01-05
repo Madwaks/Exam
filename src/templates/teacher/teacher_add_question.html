@@ -22,29 +22,29 @@
     {%csrf_token%}
     <div class="form-group">
         <label for="question">Course</label>
-      {% render_field questionForm.courseID|attr:'required:true' class="form-control"  %}
+      {% render_field form.courseID|attr:'required:true' class="form-control"  %}
         <br>
 
       <label for="question">Question</label>
-      {% render_field questionForm.question|attr:'required:true' class="form-control" placeholder="What is the currency of India ?" %}
+      {% render_field form.question|attr:'required:true' class="form-control" placeholder="What is the currency of India ?" %}
         <br>
       <label for="question_number">Marks</label>
-      {% render_field questionForm.marks|attr:'required:true' class="form-control" placeholder="10" %}
+      {% render_field form.marks|attr:'required:true' class="form-control" placeholder="10" %}
         <br>
       <label for="option1">Option 1</label>
-      {% render_field questionForm.option1|attr:'required:true' class="form-control" placeholder="Rupees" %}
+      {% render_field form.option1|attr:'required:true' class="form-control" placeholder="Rupees" %}
         <br>
       <label for="option2">Option 2</label>
-      {% render_field questionForm.option2|attr:'required:true' class="form-control" placeholder="Dollar" %}
+      {% render_field form.option2|attr:'required:true' class="form-control" placeholder="Dollar" %}
         <br>
       <label for="option3">Option 3</label>
-      {% render_field questionForm.option3|attr:'required:true' class="form-control" placeholder="Taka" %}
+      {% render_field form.option3|attr:'required:true' class="form-control" placeholder="Taka" %}
         <br>
       <label for="option4">Option 4</label>
-      {% render_field questionForm.option4|attr:'required:true' class="form-control" placeholder="Euro" %}
+      {% render_field form.option4|attr:'required:true' class="form-control" placeholder="Euro" %}
         <br>
       <label for="answer">Answer</label>
-      {% render_field questionForm.answer|attr:'required:true' class="form-control" %}
+      {% render_field form.answer|attr:'required:true' class="form-control" %}
     </div>
     
 

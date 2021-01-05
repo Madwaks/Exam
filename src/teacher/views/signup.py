@@ -14,10 +14,8 @@ class Signup(CreateView):
     model = Teacher
 
     def form_valid(self, form):
-        user = User(
-            username=self.request.POST.get("username"),
-            password=self.request.POST.get("password"),
-        )
+        user = User(username=self.request.POST.get("username"))
+        user.set_password(self.request.POST.get("password"))
         user.save()
         teacher_group = Group.objects.get_or_create(name="TEACHER")
         teacher_group[0].user_set.add(user)

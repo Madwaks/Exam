@@ -8,21 +8,15 @@ from quiz.models import Course
 from quiz.views.utils import is_teacher
 
 
-class TeacherMixin(UserPassesTestMixin, LoginRequiredMixin):
-    request: HttpRequest
-    login_url = "teacherlogin"
-
-    def test_func(self):
-        return is_teacher(self.request.user)
-
-
-class TeacherAddExam(CreateView, TeacherMixin):
+class TeacherAddExam(CreateView, UserPassesTestMixin, LoginRequiredMixin):
     model = Course
     form_class = CourseForm
     template_name = "teacher/teacher_add_exam.html"
+    login_url = "teacherlogin"
+    success_url = "/teacher/teacher-view-exam"
 
-    def get_success_url(self):
-        return reverse("/teacher/teacher-view-exam")
+    def test_func(self):
+        return is_teacher(self.request.user)
 
 
 class ExamView(ListView, UserPassesTestMixin, LoginRequiredMixin):
@@ -36,7 +30,8 @@ class ExamView(ListView, UserPassesTestMixin, LoginRequiredMixin):
 
 class DeleteExam(DeleteView, UserPassesTestMixin, LoginRequiredMixin):
     login_url = "teacherlogin"
-    success_url = reverse_lazy("/teacher/teacher-view-exam")
+    success_url = reverse_lazy("teacher-view-exam")
+    model = Course
 
     def test_func(self):
         return is_teacher(self.request.user)

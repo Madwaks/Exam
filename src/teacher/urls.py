@@ -1,9 +1,9 @@
-from django.contrib.auth.views import LoginView
 from django.urls import path
 
 from teacher.views.exam import TeacherAddExam, ExamView, DeleteExam
+from teacher.views.login import TeacherLogin
 from teacher.views.question import (
-    Question,
+    QuestionView,
     AddQuestion,
     QuestionList,
     DetailQuestions,
@@ -16,18 +16,14 @@ from teacher.views.teacher_exam import TeacherExam
 
 urlpatterns = [
     path("teacherclick", TeacherClick.as_view()),
-    path(
-        "teacherlogin",
-        LoginView.as_view(template_name="teacher/teacherlogin.html"),
-        name="teacherlogin",
-    ),
+    path("teacherlogin", TeacherLogin.as_view(), name="teacherlogin"),
     path("teachersignup", Signup.as_view(), name="teachersignup"),
     path("teacher-dashboard", TeacherDashboard.as_view(), name="teacher-dashboard"),
     path("teacher-exam", TeacherExam.as_view(), name="teacher-exam"),
     path("teacher-add-exam", TeacherAddExam.as_view(), name="teacher-add-exam"),
     path("teacher-view-exam", ExamView.as_view(), name="teacher-view-exam"),
     path("delete-exam/<int:pk>", DeleteExam.as_view(), name="delete-exam"),
-    path("teacher-question", Question.as_view(), name="teacher-question"),
+    path("teacher-question", QuestionView.as_view(), name="teacher-question"),
     path("teacher-add-question", AddQuestion.as_view(), name="teacher-add-question"),
     path("teacher-view-question", QuestionList.as_view(), name="teacher-view-question"),
     path("see-question/<int:pk>", DetailQuestions.as_view(), name="see-question"),
