@@ -1,4 +1,4 @@
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import TemplateView
 
 
 class AboutUsView(TemplateView):

@@ -1,8 +1,7 @@
 from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic.edit import View, FormView, CreateView
+from django.views.generic.edit import CreateView
 
 from student.forms import StudentUserForm
 from student.models import Student

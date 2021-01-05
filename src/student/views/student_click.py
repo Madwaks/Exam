@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import TemplateView
 
 
 class StudentClick(TemplateView):

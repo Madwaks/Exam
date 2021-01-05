@@ -14,7 +14,6 @@ from student.views.exam import (
 from student.views.student_click import StudentClick
 from student.views.student_signup import StudentSignup
 
-
 urlpatterns = [
     path("studentclick", StudentClick.as_view()),
     path(
