@@ -18,3 +18,6 @@ class Question(models.Model):
         ("Option4", "Option4"),
     )
     answer = models.CharField(max_length=200, choices=cat)
+
+    def __str__(self):
+        return str(self.question)

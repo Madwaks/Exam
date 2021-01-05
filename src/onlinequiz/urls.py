@@ -7,7 +7,12 @@ from quiz.views.about_us import AboutUsView
 from quiz.views.admin_click import AdminClick
 from quiz.views.admin_dashboard import AdminDashboard
 from quiz.views.admin_pending_teacher import AdminPendingTeacher
-from quiz.views.admin_student import AdminStudent, AdminStudentView
+from quiz.views.admin_student import (
+    AdminStudent,
+    AdminStudentView,
+    UpdateStudent,
+    AdminDeleteStudent,
+)
 from quiz.views.admin_student_marks import (
     AdminStudentMarks,
     AdminStudentMarksView,
@@ -16,8 +21,16 @@ from quiz.views.admin_student_marks import (
 from quiz.views.admin_teacher import AdminTeacher, AdminView
 from quiz.views.after_login import AfterLogin
 from quiz.views.approve_teacher import ApproveTeacher
+from quiz.views.course import CourseView, AddCourse, CourseListView, DeleteCourse
 from quiz.views.delete_teacher import DeleteTeacher, RejectTeacher
 from quiz.views.home import HomeView
+from quiz.views.question import (
+    AddQuestion,
+    QuestionListView,
+    QuestionView,
+    ViewQuestion,
+    DeleteQuestion,
+)
 from quiz.views.update_teacher import UpdateTeacher
 
 urlpatterns = [
@@ -64,23 +77,17 @@ urlpatterns = [
         AdminCheckMarks.as_view(),
         name="admin-check-marks",
     ),
-    # path("update-student/<int:pk>", views.update_student_view, name="update-student"),
-    # path("delete-student/<int:pk>", views.delete_student_view, name="delete-student"),
-    # path("admin-course", views.admin_course_view, name="admin-course"),
-    # path("admin-add-course", views.admin_add_course_view, name="admin-add-course"),
-    # path("admin-view-course", views.admin_view_course_view, name="admin-view-course"),
-    # path("delete-course/<int:pk>", views.delete_course_view, name="delete-course"),
-    # path("admin-question", views.admin_question_view, name="admin-question"),
-    # path(
-    #     "admin-add-question", views.admin_add_question_view, name="admin-add-question"
-    # ),
-    # path(
-    #     "admin-view-question",
-    #     views.admin_view_question_view,
-    #     name="admin-view-question",
-    # ),
-    # path("view-question/<int:pk>", views.view_question_view, name="view-question"),
-    # path(
-    #     "delete-question/<int:pk>", views.delete_question_view, name="delete-question"
-    # ),
+    path("update-student/<int:pk>", UpdateStudent.as_view(), name="update-student"),
+    path(
+        "delete-student/<int:pk>", AdminDeleteStudent.as_view(), name="delete-student"
+    ),
+    path("admin-course", CourseView.as_view(), name="admin-course"),
+    path("admin-add-course", AddCourse.as_view(), name="admin-add-course"),
+    path("admin-view-course", CourseListView.as_view(), name="admin-view-course"),
+    path("delete-course/<int:pk>", DeleteCourse.as_view(), name="delete-course"),
+    path("admin-question", QuestionView.as_view(), name="admin-question"),
+    path("admin-add-question", AddQuestion.as_view(), name="admin-add-question"),
+    path("admin-view-question", QuestionListView.as_view(), name="admin-view-question"),
+    path("view-question/<int:pk>", ViewQuestion.as_view(), name="view-question"),
+    path("delete-question/<int:pk>", DeleteQuestion.as_view(), name="delete-question"),
 ]

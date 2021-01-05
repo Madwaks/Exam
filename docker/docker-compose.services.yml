@@ -8,3 +8,27 @@ services:
     - '5432:5432'
     env_file:
       - ../docker_env
+    volumes:
+      - 'quiz_data:/bitnami/postgresql'
+      - 'quiz_conf:/bitnami/postgresql/conf'
+      - 'quiz_init:/docker-entrypoint-initdb.d'
+      - 'quiz_preinit:/docker-entrypoint-preinitdb.d'
+    networks:
+      - quiz-net
+volumes:
+  quiz_data:
+    name: quiz_data
+    driver: local
+  quiz_conf:
+    name: quiz_conf
+    driver: local
+  quiz_init:
+    name: quiz_init
+    driver: local
+  quiz_preinit:
+    name: quiz_preinit
+    driver: local
+
+networks:
+  quiz-net:
+    name: quiz_network

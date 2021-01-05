@@ -7,3 +7,6 @@ class TeacherUserForm(ModelForm):
         model = User
         fields = ["username", "password"]
         widgets = {"password": PasswordInput()}
+
+    def save(self, commit=True):
+        breakpoint()

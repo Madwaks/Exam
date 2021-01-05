@@ -35,25 +35,14 @@
 </head>
 
 <br><br>
-<h3 style="text-align:center;">UPDATE TEACHER</h3>
+<h3 style="text-align:center;">UPDATE TEACHER < {{object}} ></h3>
 <div>
   <form method="post"  autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
       {% csrf_token %}
-        <label for="first_name">First Name</label>
-        {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
-        <label for="last_name">Last Name</label>
-        {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
-          <label for="mobile">Mobile</label>
-          {% render_field teacherForm.mobile class="form-control" placeholder="Mobile" %}
-            <label for="address">Address</label>
-          {% render_field teacherForm.address class="form-control" placeholder="Address" %}
-          
         <label for="username">Username</label>
-        {% render_field userForm.username class="form-control" placeholder="Username" %}
+        {% render_field form.username class="form-control" placeholder="Username" %}
           <label for="password">Password</label>
-        {% render_field userForm.password class="form-control" placeholder="Password" %} <br><br>
-        <label for="profile_pic">Profile Picture</label>
-          {% render_field teacherForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+        {% render_field form.password class="form-control" placeholder="Password" %} <br><br>
 <br><br>
     <input type="submit" value="Update">
   </form>

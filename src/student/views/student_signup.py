@@ -1,29 +1,25 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic.edit import View, FormView
+from django.views.generic.edit import View, FormView, CreateView
 
-from student.forms import StudentUserForm, StudentForm
+from student.forms import StudentUserForm
+from student.models import Student
 
 
-class StudentSignup(FormView):
+class StudentSignup(CreateView):
     template_name = "student/studentsignup.html"
+    form_class = StudentUserForm
+    success_url = reverse_lazy("/student/studentlogin")
+    model = Student
 
-    def get_context_data(self, **kwargs):
-        userForm = StudentUserForm()
-        studentForm = StudentForm()
-        return {"userForm": userForm, "studentForm": studentForm}
-
-    def post(self, request, *args, **kwargs):
-        userForm = StudentUserForm(request.POST)
-        studentForm = StudentForm(request.POST, request.FILES)
-        if userForm.is_valid() and studentForm.is_valid():
-            user = userForm.save()
-            user.set_password(user.password)
-            user.save()
-            student = studentForm.save(commit=False)
-            student.user = user
-            student.save()
-            my_student_group = Group.objects.get_or_create(name="STUDENT")
-            my_student_group[0].user_set.add(user)
+    def form_valid(self, form):
+        user = User(username=self.request.POST.get("username"))
+        user.set_password(self.request.POST.get("password"))
+        user.save()
+        teacher_group = Group.objects.get_or_create(name="STUDENT")
+        teacher_group[0].user_set.add(user)
+        teacher = Student(user=user)
+        teacher.save()
         return HttpResponseRedirect("studentlogin")
