@@ -6,7 +6,7 @@ from teacher.forms.teacher import TeacherUserForm
 from teacher.models import Teacher
 
 
-class UpdateTeacher(UpdateView, LoginRequiredMixin):
+class UpdateTeacher(LoginRequiredMixin, UpdateView):
     login_url = "adminlogin"
     template_name = "quiz/update_teacher.html"
     model = Teacher

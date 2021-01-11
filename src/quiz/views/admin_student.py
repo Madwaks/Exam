@@ -8,7 +8,7 @@ from student.forms import StudentUserForm
 from student.models import Student
 
 
-class AdminStudent(TemplateView, LoginRequiredMixin):
+class AdminStudent(LoginRequiredMixin, TemplateView):
     login_url = "adminlogin"
     template_name = "quiz/admin_student.html"
     model = Student
@@ -17,20 +17,20 @@ class AdminStudent(TemplateView, LoginRequiredMixin):
         return {"total_student": Student.objects.all().count()}
 
 
-class AdminStudentView(ListView, LoginRequiredMixin):
+class AdminStudentView(LoginRequiredMixin, ListView):
     login_url = "adminlogin"
     template_name = "quiz/admin_view_student.html"
     model = Student
 
 
-class AdminDeleteStudent(DeleteView, LoginRequiredMixin):
+class AdminDeleteStudent(LoginRequiredMixin, DeleteView):
     model = Student
     login_url = "adminlogin"
     template_name = "quiz/course_confirm_delete.html"
     success_url = reverse_lazy("admin-view-student")
 
 
-class UpdateStudent(FormView, LoginRequiredMixin):
+class UpdateStudent(LoginRequiredMixin, FormView):
     login_url = "adminlogin"
 
     def get_context_data(self, **kwargs):

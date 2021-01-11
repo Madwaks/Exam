@@ -12,12 +12,12 @@ from quiz.forms.question import QuestionForm
 from quiz.models import Question
 
 
-class QuestionView(TemplateView, LoginRequiredMixin):
+class QuestionView(LoginRequiredMixin, TemplateView):
     login_url = "adminlogin"
     template_name = "quiz/admin_question.html"
 
 
-class AddQuestion(CreateView, LoginRequiredMixin):
+class AddQuestion(LoginRequiredMixin, CreateView):
     login_url = "adminlogin"
     form_class = QuestionForm
     model = Question
@@ -25,19 +25,19 @@ class AddQuestion(CreateView, LoginRequiredMixin):
     success_url = reverse_lazy("admin-view-question")
 
 
-class QuestionListView(ListView, LoginRequiredMixin):
+class QuestionListView(LoginRequiredMixin, ListView):
     login_url = "adminlogin"
     model = Question
     template_name = "quiz/admin_view_question.html"
 
 
-class ViewQuestion(DetailView, LoginRequiredMixin):
+class ViewQuestion(LoginRequiredMixin, DetailView):
     login_url = "adminlogin"
     model = Question
     template_name = "quiz/view_question.html"
 
 
-class DeleteQuestion(DeleteView, LoginRequiredMixin):
+class DeleteQuestion(LoginRequiredMixin, DeleteView):
     login_url = "adminlogin"
     model = Question
     success_url = reverse_lazy("admin-view-question")

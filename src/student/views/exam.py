@@ -9,7 +9,7 @@ from quiz.views.utils import is_student
 from student.models import Student
 
 
-class Exams(ListView, LoginRequiredMixin, UserPassesTestMixin):
+class Exams(LoginRequiredMixin, UserPassesTestMixin, ListView):
     login_url = "studentlogin"
     template_name = "student/student_exam.html"
     model = Course
@@ -18,7 +18,7 @@ class Exams(ListView, LoginRequiredMixin, UserPassesTestMixin):
         return is_student(self.request.user)
 
 
-class TakeExam(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
+class TakeExam(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "student/take_exam.html"
     login_url = "studentlogin"
 
@@ -40,7 +40,7 @@ class TakeExam(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
         }
 
 
-class StartExam(View, LoginRequiredMixin, UserPassesTestMixin):
+class StartExam(LoginRequiredMixin, UserPassesTestMixin, View):
     login_url = "studentlogin"
 
     def test_func(self):
@@ -58,7 +58,7 @@ class StartExam(View, LoginRequiredMixin, UserPassesTestMixin):
         return response
 
 
-class CalculateMarks(View, LoginRequiredMixin, UserPassesTestMixin):
+class CalculateMarks(LoginRequiredMixin, UserPassesTestMixin, View):
     login_url = "studentlogin"
 
     def test_func(self):
@@ -86,7 +86,7 @@ class CalculateMarks(View, LoginRequiredMixin, UserPassesTestMixin):
             return HttpResponseRedirect("view-result")
 
 
-class ResultView(ListView, LoginRequiredMixin, UserPassesTestMixin):
+class ResultView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     login_url = "studentlogin"
     model = Course
     template_name = "student/view_result.html"
@@ -95,7 +95,7 @@ class ResultView(ListView, LoginRequiredMixin, UserPassesTestMixin):
         return is_student(self.request.user)
 
 
-class CheckMark(TemplateView, LoginRequiredMixin, UserPassesTestMixin):
+class CheckMark(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     login_url = "studentlogin"
     template_name = "student/check_marks.html"
 
@@ -110,7 +110,7 @@ class CheckMark(TemplateView, LoginRequiredMixin, UserPassesTestMixin):
         return {"results": results}
 
 
-class StudentMark(ListView, LoginRequiredMixin, UserPassesTestMixin):
+class StudentMark(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Course
     template_name = "student/student_marks.html"
     login_url = "studentlogin"

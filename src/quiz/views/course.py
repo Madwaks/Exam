@@ -6,12 +6,12 @@ from quiz.forms.course import CourseForm
 from quiz.models import Course
 
 
-class CourseView(TemplateView, LoginRequiredMixin):
+class CourseView(LoginRequiredMixin, TemplateView):
     template_name = "quiz/admin_course.html"
     login_url = "adminlogin"
 
 
-class AddCourse(CreateView, LoginRequiredMixin):
+class AddCourse(LoginRequiredMixin, CreateView):
     login_url = "adminlogin"
     form_class = CourseForm
     model = Course
@@ -19,13 +19,13 @@ class AddCourse(CreateView, LoginRequiredMixin):
     success_url = reverse_lazy("admin-view-course")
 
 
-class CourseListView(ListView, LoginRequiredMixin):
+class CourseListView(LoginRequiredMixin, ListView):
     login_url = "adminlogin"
     template_name = "quiz/admin_view_course.html"
     model = Course
 
 
-class DeleteCourse(DeleteView, LoginRequiredMixin):
+class DeleteCourse(LoginRequiredMixin, DeleteView):
     model = Course
     template_name = "quiz/course_confirm_delete.html"
     success_url = reverse_lazy("admin-view-course")

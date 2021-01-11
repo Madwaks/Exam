@@ -5,14 +5,14 @@ from django.views.generic import DeleteView
 from teacher.models import Teacher
 
 
-class DeleteTeacher(DeleteView, LoginRequiredMixin):
+class DeleteTeacher(LoginRequiredMixin, DeleteView):
     model = Teacher
     login_url = "adminlogin"
     template_name = "quiz/course_confirm_delete.html"
     success_url = reverse_lazy("admin-view-teacher")
 
 
-class RejectTeacher(DeleteView, LoginRequiredMixin):
+class RejectTeacher(LoginRequiredMixin, DeleteView):
     model = Teacher
     login_url = "adminlogin"
     template_name = "quiz/course_confirm_delete.html"

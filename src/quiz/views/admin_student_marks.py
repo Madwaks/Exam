@@ -6,7 +6,7 @@ from quiz.models import Course, Result
 from student.models import Student
 
 
-class AdminStudentMarks(TemplateView, LoginRequiredMixin):
+class AdminStudentMarks(LoginRequiredMixin, TemplateView):
     login_url = "adminlogin"
     template_name = "quiz/admin_view_student_marks.html"
 
@@ -14,7 +14,7 @@ class AdminStudentMarks(TemplateView, LoginRequiredMixin):
         return {"students": Student.objects.all()}
 
 
-class AdminStudentMarksView(TemplateView, LoginRequiredMixin):
+class AdminStudentMarksView(LoginRequiredMixin, TemplateView):
     login_url = "adminlogin"
     template_name = "quiz/admin_view_marks.html"
 
@@ -25,7 +25,7 @@ class AdminStudentMarksView(TemplateView, LoginRequiredMixin):
         return response
 
 
-class AdminCheckMarks(TemplateView, LoginRequiredMixin):
+class AdminCheckMarks(LoginRequiredMixin, TemplateView):
     login_url = "adminlogin"
     template_name = "quiz/admin_check_marks.html"
 

@@ -1,8 +1,9 @@
 import os
-import django
-from django.conf import settings
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "onlinequiz.settings")
+import django
+import pytest
+from django.conf import settings
 
 
 def pytest_configure():

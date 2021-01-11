@@ -1,7 +1,13 @@
-import pytest
 from django.contrib.auth.models import User
+import pytest
+from django.test import RequestFactory
 
 from teacher.models import Teacher
+
+
+@pytest.fixture(scope="session")
+def request_factory() -> RequestFactory:
+    return RequestFactory()
 
 
 @pytest.fixture(scope="session")

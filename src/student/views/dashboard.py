@@ -5,7 +5,7 @@ from quiz.models import Course, Question
 from quiz.views.utils import is_student
 
 
-class DashBoard(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
+class DashBoard(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     login_url = "studentlogin"
     template_name = "student/student_dashboard.html"
 

@@ -12,7 +12,7 @@ def is_teacher(user):
     return user.groups.filter(name="TEACHER").exists()
 
 
-class TeacherDashboard(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
+class TeacherDashboard(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "teacher/teacher_dashboard.html"
     login_url = "teacherlogin"
 

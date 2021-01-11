@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 from quiz.views.utils import is_teacher
 
 
-class TeacherExam(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
+class TeacherExam(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "teacher/teacher_exam.html"
     login_url = "teacherlogin"
 

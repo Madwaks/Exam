@@ -22,7 +22,7 @@
 #     return render(request, "quiz/update_student.html", context=mydict)
 #
 #
-# class UpdateStudent(UpdateView, LoginRequiredMixin):
+# class UpdateStudent(LoginRequiredMixin, UpdateView):
 #     template_name = "quiz/update_student.html"
 #     success_url = reverse_lazy("admin-view-student")
 #     form_class =
